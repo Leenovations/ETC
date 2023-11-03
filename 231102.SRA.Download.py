@@ -3,8 +3,11 @@
 import os
 import sys
 #-------------------------------------------------------------------------#
-command = 'mkdir 00.RawData'
-os.system(command)
+if os.path.isdir('00.RawData'):
+    pass
+else:
+    command = 'mkdir 00.RawData'
+    os.system(command)
 #-------------------------------------------------------------------------#
 with open('SRA.list.txt', 'r') as sra:
     for line in sra:
@@ -27,4 +30,4 @@ with open('Total.Run.sh', 'w') as note:
             line = line.strip()
 
             Path = os.getcwd()
-            note.write(f'cd {Path}/00.RawData/{line}; sbatch job.sh' + '\n'
+            note.write(f'cd {Path}/00.RawData/{line}; sbatch job.sh' + '\n')
