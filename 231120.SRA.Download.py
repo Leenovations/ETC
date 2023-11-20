@@ -40,9 +40,6 @@ elif sys.argv[1] == 'fastq-dump':
     for sra in SRA_list:
         command = f'mkdir -p 00.RawData/{sra}'
         os.system(command)
-            
-        command = f'mkdir -p 00.RawData/{sra}'
-        os.system(command)
 
         with open(f'00.RawData/{sra}/job.sh', 'w') as note:
             note.write('#!/bin/bash' + '\n' + '#' + '\n' + \
