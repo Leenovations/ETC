@@ -27,6 +27,7 @@ if sys.argv[1] == 'fasterq-dump':
             note.write('#!/bin/bash' + '\n' + '#' + '\n' + \
                         '#SBATCH -J fasterq_dump' + '\n' + \
                         '#SBATCH -o Log.%j.out' + '\n' + \
+                        '#SBATCH --time=UNLIMITED' + '\n' + \
                         f'#SBATCH --nodelist={sys.argv[2]}' + '\n' + \
                         '#SBATCH -n 2' + '\n' + '\n' + \
                         f'fasterq-dump -S -t TEMP/ -e 2 -O ../ {sra}')
