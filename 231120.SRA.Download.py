@@ -45,6 +45,7 @@ elif sys.argv[1] == 'fastq-dump':
             note.write('#!/bin/bash' + '\n' + '#' + '\n' + \
                         '#SBATCH -J fastq_dump' + '\n' + \
                         '#SBATCH -o Log.%j.out' + '\n' + \
+                        '#SBATCH --time=UNLIMITED' + '\n' + \
                         f'#SBATCH --nodelist={sys.argv[2]}' + '\n' + \
                         '#SBATCH -n 2' + '\n' + '\n' + \
                         f'fastq-dump --split-files -gzip --outdir ../ {sra}')
