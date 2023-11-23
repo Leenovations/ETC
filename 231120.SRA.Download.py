@@ -30,7 +30,7 @@ if sys.argv[1] == 'fasterq-dump':
                         '#SBATCH --time=UNLIMITED' + '\n' + \
                         f'#SBATCH --nodelist={sys.argv[2]}' + '\n' + \
                         '#SBATCH -n 2' + '\n' + '\n' + \
-                        f'fasterq-dump -S -t TEMP/ -e 2 -O ../ {sra}')
+                        f'fasterq-dump -S -t TEMP/ -e 6 -m 1000MB -O ../ {sra}')
 
     with open('Total.Run.sh', 'w') as note:
         for sra in SRA_list:
