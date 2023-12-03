@@ -20,14 +20,20 @@ else:
     command = 'mkdir 00.RawData'
     os.system(command)
 #-------------------------------------------------------------------------#
+if os.path.isdir('01.Finish'):
+    pass
+else:
+    command = 'mkdir 01.Finish'
+    os.system(command)
+#-------------------------------------------------------------------------#
 SRA_list = sys.argv[4:]
+Sample_count = len(SRA_list)
 #-------------------------------------------------------------------------#
 def CPU_MAX():
     MAX_CPU = int(sys.argv[3])
     Allocated_CPU = 0
-    PID_exe = []
 
-    if sys.argv[1] == 'fasterq-dump':
+    if sys.argv[1] == 'fasterq-dump' :
         for sra in SRA_list:
             Allocated_CPU += 2
 
@@ -41,27 +47,46 @@ def CPU_MAX():
                             '#SBATCH --time=UNLIMITED' + '\n' + \
                             f'#SBATCH --nodelist={sys.argv[2]}' + '\n' + \
                             '#SBATCH -n 2' + '\n' + '\n' + \
-                            f'fasterq-dump -S -t 00.RawData/{sra}/TEMP/ -e 8 -m 5000MB -O ../ {sra}')
+                            f'fasterq-dump -S -t 00.RawData/{sra}/TEMP/ -e 8 -m 5000MB -O ../ {sra}' + '\n' + \
+                            f'echo {sra} Raw data download is finished.\nPlease check log file. > 01.Finish/{sra}.txt')
             
             command = f'sbatch 00.RawData/{sra}/job.sh'
             os.system(command)
 
-            time.sleep(3)
-
-            JobID = glob.glob(f'00.RawData/{sra}/Log*')
-            JobID.sort(reverse=True)
-            JobID = [s.replace(f'00.RawData/{sra}/', '') for s in JobID][0]
-            JobID = JobID.split('.')[1]
-
-            Pid = subprocess.check_output(f"scontrol listpids | column -t | grep {JobID} | head -n 1 | awk '{{print $1}}'", shell=True, text=True).strip()
-            PID_exe.append(int(Pid))
-            print(PID_exe)
-
-            if MAX_CPU < Allocated_CPU:
+            if Allocated_CPU + 2 > MAX_CPU:
                 break
-        
-        Scheduled_SRA = SRA_list[len(PID_exe) + 1 : ]
-        print(Scheduled_SRA)
+
+        time.sleep(3600)
+
+        Scheduled_SRA = SRA_list[int(MAX_CPU/2) : ]
+
+        while True:
+            Finished_SRA = os.listdir('01.Finish/')
+            if len(Scheduled_SRA) != 0:
+                for index in range(0, len(Finished_SRA)):
+                    command = f'mkdir -p 00.RawData/{Scheduled_SRA[index]}'
+                    os.system(command)
+
+                    with open(f'00.RawData/{Scheduled_SRA[index]}/job.sh', 'w') as note:
+                        note.write('#!/bin/bash' + '\n' + '#' + '\n' + \
+                                    '#SBATCH -J fasterq_dump' + '\n' + \
+                                    f'#SBATCH -o 00.RawData/{Scheduled_SRA[index]}/Log.%j.out' + '\n' + \
+                                    '#SBATCH --time=UNLIMITED' + '\n' + \
+                                    f'#SBATCH --nodelist={sys.argv[2]}' + '\n' + \
+                                    '#SBATCH -n 2' + '\n' + '\n' + \
+                                    f'fasterq-dump -S -t 00.RawData/{Scheduled_SRA[index]}/TEMP/ -e 8 -m 5000MB -O ../ {Scheduled_SRA[index]}' + '\n' + \
+                                    f'echo {Scheduled_SRA[index]} Raw data download is finished.\nPlease check log file. > 01.Finish/{Scheduled_SRA[index]}.txt')
+
+                    command = f'sbatch 00.RawData/{Scheduled_SRA[index]}/job.sh'
+                    os.system(command)
+
+                for index in range(0, len(Finished_SRA)):
+                    Scheduled_SRA.pop(index)
+                    os.remove('01.Finish/' + Finished_SRA[index])
+
+                time.sleep(3600)
+            else:
+                break
 
 def CPU_free():
     if sys.argv[1] == 'fasterq-dump':
