@@ -133,8 +133,8 @@ ha = HeatmapAnnotation("Involvement site" = Annotation$Involvement,
                        annotation_height = unit(c(5, 5, 100), "mm"),
                        annotation_name_gp= gpar(fontsize = 8))
 
-Onco.Data <- read_excel('~/Documents/05.대학원/01.BPDCN/03.Table/231010.BPDCN.Oncoprint-filter.input.xlsx',
-                        sheet=1)
+Onco.Data <- read_excel('~/Desktop/231205.BPDCN.Oncoprint.xlsx',
+                        sheet='OncoPrint')
 Onco.Data <- as.data.frame(Onco.Data)
 Onco.Data <- Onco.Data[order(-rowSums(!is.na(Onco.Data))), ]
 Onco.Data[is.na(Onco.Data)] <- ''
@@ -144,66 +144,57 @@ Onco.Data[is.na(Onco.Data)] <- ''
 # Onco.Data <- Onco.Data[,-1]
 
 # call functional annotation data
-Function <- read_excel('/Users/lee/Documents/05.대학원/01.BPDCN/07.Ontology/Ontology.xlsx',
-                       sheet = 'Enrichment')
+Function <- read_excel('~/Desktop/BPDCN.Pathway.xlsx',
+                       sheet = 'main')
 Function <- as.data.frame(Function)
 
-Chromatin <- Function[4,4]
+DNA_meta <- Function[1,8]
+DNA_meta <- unlist(strsplit(DNA_meta, ','))
+
+Chromatin <- Function[4,8]
 Chromatin <- unlist(strsplit(Chromatin, ','))
 
-Hemopoiesis <- Function[7, 4]
-Hemopoiesis <- unlist(strsplit(Hemopoiesis, ','))
-Hemopoiesis <- setdiff(Hemopoiesis, Chromatin)
+hema <- Function[7,8]
+hema <- unlist(strsplit(hema, ','))
 
-immune <- Function[c(12,15), 4]
+cycle <- Function[11,8]
+cycle <- unlist(strsplit(cycle, ','))
+
+immune <- Function[19,8]
 immune <- unlist(strsplit(immune, ','))
-immune <- Reduce(setdiff, list(immune, Hemopoiesis, Chromatin))
 
-kinase <- Function[3, 4]
-kinase <- unlist(strsplit(kinase, ','))
-kinase <- Reduce(setdiff, list(kinase, immune, Hemopoiesis, Chromatin))
-
-cytokine <- Function[c(16,17,18), 4]
-cytokine <- unlist(strsplit(cytokine, ','))
-cytokine <- Reduce(setdiff, list(cytokine, kinase, immune, Hemopoiesis, Chromatin))
-
-adhesion <- Function[5, 4]
-adhesion <- unlist(strsplit(adhesion, ','))
-adhesion <- Reduce(setdiff, list(adhesion, cytokine, kinase, immune, Hemopoiesis, Chromatin))
+DNA_meta <- Onco.Data %>%
+  filter(Gene %in% DNA_meta)
+rownames(DNA_meta) <- DNA_meta$Gene
+DNA_meta <- DNA_meta[-1]
 
 Chromatin <- Onco.Data %>%
   filter(Gene %in% Chromatin)
 rownames(Chromatin) <- Chromatin$Gene
 Chromatin <- Chromatin[-1]
 
-Hemopoiesis <- Onco.Data %>%
-  filter(Gene %in% Hemopoiesis)
-rownames(Hemopoiesis) <- Hemopoiesis$Gene
-Hemopoiesis <- Hemopoiesis[-1]
+hema <- Onco.Data %>%
+  filter(Gene %in% hema)
+rownames(hema) <- hema$Gene
+hema <- hema[-1]
+
+cycle <- Onco.Data %>%
+  filter(Gene %in% cycle)
+rownames(cycle) <- cycle$Gene
+cycle <- cycle[-1]
 
 immune <- Onco.Data %>%
   filter(Gene %in% immune)
 rownames(immune) <- immune$Gene
 immune <- immune[-1]
 
-kinase <- Onco.Data %>%
-  filter(Gene %in% kinase)
-rownames(kinase) <- kinase$Gene
-kinase <- kinase[-1]
-
-# cytokine <- Onco.Data %>%
-#   filter(Gene %in% cytokine)
-# rownames(cytokine) <- cytokine$Gene
-# cytokine <- cytokine[-1]
-# 
-# adhesion <- Onco.Data %>%
-#   filter(Gene %in% adhesion)
-# rownames(adhesion) <- adhesion$Gene
-# adhesion <- adhesion[-1]
-
-Onco.Data <- rbind(Chromatin, Hemopoiesis, immune, kinase)
-
-pdf('~/Desktop/231010.BPDCN.Oncoprint.function.pdf', height=15)
+Onco.Data <- rbind(DNA_meta, Chromatin, hema, cycle, immune)
+dim(DNA_meta)
+dim(Chromatin)
+dim(hema)
+dim(cycle)
+dim(immune)
+pdf('~/Desktop/231010.BPDCN.Oncoprint.function.pdf', height=18)
 a <- oncoPrint(Onco.Data,
                alter_fun = alter_fun, col = col.Onco,
                gap = unit(c(1.5), "mm"),
@@ -212,13 +203,14 @@ a <- oncoPrint(Onco.Data,
                alter_fun_is_vectorized = FALSE,
                bottom_annotation = ha,
                column_order = colnames(Onco.Data),
-               row_names_gp = gpar(fontsize=7, fontface='italic'),
+               row_names_gp = gpar(fontsize=5, fontface='italic'),
                pct_gp = gpar(fontsize=7),
                row_title_gp = gpar(fontsize=10))
 draw(a, heatmap_legend_side = "bottom", annotation_legend_side = "bottom", merge_legend = TRUE,
-     row_split = rep(c("Chromatin organization",
+     row_split = rep(c("DNA metabolic pathway",
+                       "Chromatin organazation",
                        "Hematopoiesis",
-                       "Immune response",
-                       "Regulation of\nkinase activity"),
-                     c(22,18,25,8)))
+                       "Cell cycle",
+                       'Immun system'),
+                     c(60, 32, 28, 21, 28)))
 dev.off()
