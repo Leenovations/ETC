@@ -156,13 +156,22 @@ Chromatin <- unlist(strsplit(Chromatin, ','))
 
 hema <- Function[7,8]
 hema <- unlist(strsplit(hema, ','))
-
+  
 cycle <- Function[11,8]
 cycle <- unlist(strsplit(cycle, ','))
 
 immune <- Function[19,8]
 immune <- unlist(strsplit(immune, ','))
-
+#------------------------------------------------------------------------------#
+Diff1 <- c(DNA_meta, Chromatin)
+Diff2 <- c(DNA_meta, Chromatin, hema)
+Diff3 <- c(DNA_meta, Chromatin, hema, cycle)
+#------------------------------------------------------------------------------#
+Chromatin <- setdiff(Chromatin, DNA_meta)
+hema <- setdiff(hema, Diff1)
+cycle <- setdiff(cycle, Diff2)
+immune <- setdiff(immune, Diff3)
+#-------------------------------------------------------------------------------#
 DNA_meta <- Onco.Data %>%
   filter(Gene %in% DNA_meta)
 rownames(DNA_meta) <- DNA_meta$Gene
@@ -188,12 +197,13 @@ immune <- Onco.Data %>%
 rownames(immune) <- immune$Gene
 immune <- immune[-1]
 
-Onco.Data <- rbind(DNA_meta, Chromatin, hema, cycle, immune)
+Onco.Data <- rbind(DNA_meta, Chromatin, hema, immune)
+
 dim(DNA_meta)
 dim(Chromatin)
 dim(hema)
-dim(cycle)
 dim(immune)
+
 pdf('~/Desktop/231010.BPDCN.Oncoprint.function.pdf', height=18)
 a <- oncoPrint(Onco.Data,
                alter_fun = alter_fun, col = col.Onco,
@@ -210,7 +220,6 @@ draw(a, heatmap_legend_side = "bottom", annotation_legend_side = "bottom", merge
      row_split = rep(c("DNA metabolic pathway",
                        "Chromatin organazation",
                        "Hematopoiesis",
-                       "Cell cycle",
                        'Immun system'),
-                     c(60, 32, 28, 21, 28)))
+                     c(60, 12, 10, 6)))
 dev.off()
