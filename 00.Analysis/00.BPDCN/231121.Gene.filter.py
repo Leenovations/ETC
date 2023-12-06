@@ -15,7 +15,7 @@ Target_list = pd.read_csv('/media/node02-HDD01/01.BPDCN_SV/00.Gene/Gene.txt',
                    header=None)
 #------------------------------------------------------------#
 Files = glob.glob(f'{sys.argv[1]}/*tsv')
-Files = glob.glob(f'/media/node02-HDD01/01.BPDCN_SV/01.SV/00.Original/*tsv')[1:]
+Files = glob.glob(f'/media/node02-HDD01/01.BPDCN_SV/01.SV/00.Original/*tsv')
 Files.sort()
 #------------------------------------------------------------#
 if os.path.isdir('01.Filtered'):
