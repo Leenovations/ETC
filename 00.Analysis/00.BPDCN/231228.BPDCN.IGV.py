@@ -34,7 +34,7 @@ for sample in Sample:
             Splitted = Position.split(':')
             Chr = str(Splitted[0])
             Start = int(Splitted[1].split('-')[0])
-            End = int(Splitted[1].split('-')[0])
+            End = int(Splitted[1].split('-')[1])
             Gene = Result.iloc[row, 5]
             Variant = Result.iloc[row, 8]
             VAF = Result.iloc[row, 13]
