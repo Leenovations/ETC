@@ -31,7 +31,7 @@ CPU = [cpu - 1 if cpu % 2 != 0 else cpu for cpu in CPU]
 if BATCH['Run.type'] == 'WGS':
     Code = '/labmed/00.Code/Pipeline/WGS.py'
 elif BATCH['Run.type'] == 'WES':
-    Code = '/labmed/00.Code/Pipeline/WES.comp.py'
+    Code = '/labmed/00.Code/Pipeline/WES.py'
 elif BATCH['Run.type'] == 'WGBS':
     Code = '/labmed/00.Code/Pipeline/WGBS.py'
 elif BATCH['Run.type'] == 'mRNA':
