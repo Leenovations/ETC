@@ -7,7 +7,6 @@ import pandas as pd
 import numpy as np
 #-----------------------------------------------------------------------------#
 parser = argparse.ArgumentParser(description='Pipeline Usage')
-# parser.add_argument('1', metavar='<WGBS or mRNA or WGS or WES or Gleevec>' ,help='Project name')
 args = parser.parse_args()
 #-----------------------------------------------------------------------------#
 with open('SampleSheet.txt', 'r') as samplesheet:
