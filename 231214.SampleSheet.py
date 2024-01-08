@@ -12,11 +12,12 @@ with open('SampleSheet.txt', 'w') as note1:
 			Name = Name.split('_R1')[0]
 			command = f'mkdir {Name}'
 			os.system(command)
+			Size = os.path.getsize(fastq)
 
 			name = fastq.split('_R1')[0]
 			First = fastq
 			Second = fastq.replace('_R1', '_R2')
-			note1.write(Name + '\t' + First+ '\t' + Second + '\n')
+			note1.write(Name + '\t' + First+ '\t' + Second + '\t' + str(Size) + '\n')
 
 			with open(f'{Name}/SampleSheet.txt', 'w') as note2:
 				name = fastq.split('_R1')[0]
@@ -29,11 +30,12 @@ with open('SampleSheet.txt', 'w') as note1:
 			Name = Name.split('_1.fastq.gz')[0]
 			command = f'mkdir {Name}'
 			os.system(command)
+			Size = os.path.getsize(fastq)
 
 			name = fastq.split('_1.fastq.gz')[0]
 			First = fastq
 			Second = fastq.replace('_1.fastq.gz', '_2.fastq.gz')
-			note1.write(Name + '\t' + First+ '\t' + Second + '\n')
+			note1.write(Name + '\t' + First+ '\t' + Second + '\t' + str(Size) + '\n')
 
 			with open(f'{Name}/SampleSheet.txt', 'w') as note2:
 				name = fastq.split('_1.fastq.gz')[0]
@@ -46,11 +48,12 @@ with open('SampleSheet.txt', 'w') as note1:
 			Name = Name.split('_1.fastq')[0]
 			command = f'mkdir {Name}'
 			os.system(command)
+			Size = os.path.getsize(fastq)
 
 			name = fastq.split('_1.fastq')[0]
 			First = fastq
 			Second = fastq.replace('_1.fastq', '_2.fastq')
-			note1.write(Name + '\t' + First+ '\t' + Second + '\n')
+			note1.write(Name + '\t' + First+ '\t' + Second + '\t' + str(Size) + '\n')
 
 			with open(f'{Name}/SampleSheet.txt', 'w') as note2:
 				name = fastq.split('_1.fastq')[0]
