@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-import os
+
 import sys
 import argparse
 import glob
@@ -10,7 +10,7 @@ import subprocess
 parser = argparse.ArgumentParser(description='Code Usage')
 parser.add_argument('1', metavar='<Tool>', help='Select download tool')
 parser.add_argument('2', metavar='<node>', help='Select node')
-parser.add_argument('3', metavar='<Max>', help='Set Max CPU or Not')
+parser.add_argument('3', metavar='<Max>', help='Set Max CPU or None')
 parser.add_argument('4', metavar='<SRA num>', nargs='+', help='Set SRA number')
 args=parser.parse_args()
 #-------------------------------------------------------------------------#

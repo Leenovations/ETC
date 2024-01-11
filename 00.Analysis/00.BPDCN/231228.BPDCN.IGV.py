@@ -2,7 +2,6 @@ import igv_remote
 import os
 import glob
 import pandas as pd
-import time
 #--------------------------------------------------------------------------------------#
 Sample = glob.glob('*.results.xlsx')
 Sample.sort()

@@ -16,7 +16,7 @@ else:
     command = 'mkdir 00.RawData'
     os.system(command)
 #-------------------------------------------------------------------------#
-SRA_list = sys.argv[3:]
+SRA_list = sys.argv[4:]
 #-------------------------------------------------------------------------#
 if sys.argv[1] == 'fasterq-dump':
     for sra in SRA_list:
