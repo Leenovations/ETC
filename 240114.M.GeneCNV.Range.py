@@ -2,8 +2,8 @@
 
 import pandas as pd
 #------------------------------------------------------------#
-with open("/media/src/hg19/01.Methylation/00.Bed/NCBI.RefSeq.Selected.Exon.Chr.X.bed", "r") as bed:
-    with open("/media/src/hg19/01.Methylation/00.Bed/NCBI.RefSeq.Selected.GeneCNV.Chr.X.bed", "w") as note:
+with open("/media/src/hg19/08.bed/NCBI.RefSeq.Selected.Exon.Chr.X.bed", "r") as bed:
+    with open("/media/src/hg19/08.bed/NCBI.RefSeq.Selected.GeneCNV.Chr.X.bed", "w") as note:
         for line in bed:
             line = line.strip()
             splitted = line.split('\t')
