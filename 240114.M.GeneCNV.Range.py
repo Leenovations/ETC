@@ -15,4 +15,4 @@ with open("/media/src/hg19/08.bed/NCBI.RefSeq.Selected.Exon.Chr.X.bed", "r") as 
             Strand = splitted[5]
 
             for position in range(Start, End + 1):
-                note.write(Chr + '\t' + str(position) + '\t' + str(position) + '\t' + Gene + '\t' + Exon + '\t' + Strand + '\n')
+                note.write(Chr + '\t' + str(position - 1) + '\t' + str(position + 1) + '\t' + Gene + '\t' + Exon + '\t' + Strand + '\n')
