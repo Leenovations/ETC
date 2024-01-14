@@ -25,7 +25,7 @@ Gene = list(set(Exon.iloc[:, 3].to_list()))
 
 for gene in Gene:
     Bed = Exon[Exon.iloc[:, 3] == gene]
-    Bed.to_csv(f"/media/src/hg19/04.cnv/{gene}.bed",
+    Bed.to_csv(f"/media/src/hg19/04.cnv/{gene}.cnv.bed",
             sep='\t',
             index=False,
             header=None)
