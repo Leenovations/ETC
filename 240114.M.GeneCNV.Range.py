@@ -1,6 +1,7 @@
 #!/home/lab/anaconda3/envs/NGS/bin/python3
 
 import pandas as pd
+import os
 #------------------------------------------------------------#
 with open("/media/src/hg19/08.bed/NCBI.RefSeq.Selected.Exon.Chr.X.bed", "r") as bed:
     with open("/media/src/hg19/08.bed/NCBI.RefSeq.Selected.GeneCNV.Chr.X.bed", "w") as note:
@@ -24,8 +25,11 @@ Exon = pd.read_csv(f"/media/src/hg19/08.bed/NCBI.RefSeq.Selected.GeneCNV.Chr.X.b
 Gene = list(set(Exon.iloc[:, 3].to_list()))
 
 for gene in Gene:
-    Bed = Exon[Exon.iloc[:, 3] == gene]
-    Bed.to_csv(f"/media/src/hg19/04.cnv/{gene}.cnv.bed",
-            sep='\t',
-            index=False,
-            header=None)
+	if os.path.isfile(f"/media/src/hg19/04.cnv/{gene}.cnv.bed"):
+		continue
+	else:
+		Bed = Exon[Exon.iloc[:, 3] == gene]
+		Bed.to_csv(f"/media/src/hg19/04.cnv/{gene}.cnv.bed",
+				sep='\t',
+				index=False,
+				header=None)
