@@ -16,3 +16,16 @@ with open("/media/src/hg19/08.bed/NCBI.RefSeq.Selected.Exon.Chr.X.bed", "r") as 
 
             for position in range(Start, End + 1):
                 note.write(Chr + '\t' + str(position - 1) + '\t' + str(position + 1) + '\t' + Gene + '\t' + Exon + '\t' + Strand + '\n')
+
+Exon = pd.read_csv(f"/media/src/hg19/08.bed/NCBI.RefSeq.Selected.GeneCNV.Chr.X.bed",
+                sep='\t',
+                low_memory=False,
+                header=None)
+Gene = list(set(Exon.iloc[:, 3].to_list()))
+
+for gene in Gene:
+    Bed = Exon[Exon.iloc[:, 3] == gene]
+    Bed.to_csv(f"/media/src/hg19/04.cnv/{gene}.bed",
+            sep='\t',
+            index=False,
+            header=None)
