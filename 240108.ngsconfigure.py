@@ -14,8 +14,13 @@ Dir = os.getcwd()
 #-----------------------------------------------------------------------------#
 with open('SampleSheet.txt', 'r') as samplesheet:
     Sample_Count = 0
+    Sample_Dir = []
+    Sample_Name = []
     for line in samplesheet:
+        Sample_name = line.split('\t')[0]
+        Sample_Name.append(Sample_name)
         Sample_Count += 1
+        Sample_Dir.append(Dir + '/' + Sample_name)
 #-----------------------------------------------------------------------------#
 BATCH = {}
 with open('batch.config', 'r') as batch:
@@ -76,6 +81,8 @@ with open('SampleSheet.txt', 'r') as samplesheet:
         Cpu = CPU[num]
         BATCH['CPU'] = CPU[num]
         BATCH['SampleCount'] = Sample_Count
+        BATCH['Sample.Name'] = Sample_Name
+        BATCH['Sample.Dir'] = Sample_Dir
         with open(f'{Name}/{Name}.batch.config', 'w') as note:
             for Key in BATCH.keys():
                 note.write(Key + '=' + str(BATCH[Key]) + '\n')
