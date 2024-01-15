@@ -7,7 +7,7 @@ Sample = glob.glob('*.results.xlsx')
 Sample.sort()
 Sample = [sample.split('.')[0] for sample in Sample]
 #--------------------------------------------------------------------------------------#
-for sample in Sample[0:1]:
+for sample in Sample:
     if os.path.isdir(f'{sample}_IGV'):
         pass
     else:
@@ -33,15 +33,16 @@ for sample in Sample[0:1]:
             Position = Result.iloc[row, 4]
             Splitted = Position.split(':')
             Chr = str(Splitted[0])
-            Start = int(Splitted[1].split('-')[0]) - 10
-            End = int(Splitted[1].split('-')[1]) + 10
+            Start = int(Splitted[1].split('-')[0]) - 15
+            End = int(Splitted[1].split('-')[1]) + 15
             Gene = Result.iloc[row, 5]
             Variant = Result.iloc[row, 8]
             Variant = Variant.replace('>','_')
             Variant = Variant.replace('*','_')
+            Canonical = Result.iloc[row, 10]
             VAF = Result.iloc[row, 13]
 
-            ir.set_saveopts(img_dir = f'{sample}_IGV/', img_basename = f'{sample}.{Gene}.{Variant}.{VAF}.png')
+            ir.set_saveopts(img_dir = f'{sample}_IGV/', img_basename = f'{sample}.{Gene}.{Variant}.{Canonical}.{VAF}.png')
             ir.goto(Chr, Start, End)
             ir.snapshot()
 
