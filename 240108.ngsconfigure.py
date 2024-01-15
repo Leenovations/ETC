@@ -20,7 +20,9 @@ with open('SampleSheet.txt', 'r') as samplesheet:
         Sample_name = line.split('\t')[0]
         Sample_Name.append(Sample_name)
         Sample_Count += 1
-        Sample_Dir.append(Dir + '/' + Sample_name)
+        Sample_Dir.append(Dir + '/' + Sample_name + '/')
+    Sample_Dir = ','.join(Sample_Dir)
+    Sample_Name = ','.join(Sample_Name)
 #-----------------------------------------------------------------------------#
 BATCH = {}
 with open('batch.config', 'r') as batch:
