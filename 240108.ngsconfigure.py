@@ -9,6 +9,9 @@ import numpy as np
 parser = argparse.ArgumentParser(description='Pipeline Usage')
 args = parser.parse_args()
 #-----------------------------------------------------------------------------#
+command = 'pwd'
+Dir = os.getcwd()
+#-----------------------------------------------------------------------------#
 with open('SampleSheet.txt', 'r') as samplesheet:
     Sample_Count = 0
     for line in samplesheet:
@@ -89,9 +92,6 @@ with open('SampleSheet.txt', 'r') as samplesheet:
                         + f"python3 {Code}")
         num += 1
 #-----------------------------------------------------------------------------#
-command = 'pwd'
-Dir = os.getcwd()
-
 with open('Total.Run.sh', 'w') as note:
     with open('SampleSheet.txt', 'r') as samp:
         Sample_Count = 0
