@@ -12,7 +12,8 @@ args = parser.parse_args()
 #------------------------------------------------------------#
 Onco_Info = pd.read_excel(sys.argv[1],
                           header=0,
-                          sheet_name='variant_list')
+                          engine='openpyxl',
+                          sheet_name='Variants')
 #------------------------------------------------------------#
 Filtered = Onco_Info[Onco_Info.iloc[:, Onco_Info.columns.get_loc('Canonical')] != 'Synonymous']
 Filtered = pd.DataFrame(Filtered)
