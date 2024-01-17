@@ -33,8 +33,10 @@ for sample in Sample:
             Position = Result.iloc[row, 4]
             Splitted = Position.split(':')
             Chr = str(Splitted[0])
-            Start = int(Splitted[1].split('-')[0]) - 15
-            End = int(Splitted[1].split('-')[1]) + 15
+            Start = int(Splitted[1].split('-')[0])
+            End = int(Splitted[1].split('-')[1])
+            Start_modified = Start - 15
+            End_modified = End + 15
             Gene = Result.iloc[row, 5]
             Variant = Result.iloc[row, 8]
             Variant = Variant.replace('>','_')
@@ -42,7 +44,7 @@ for sample in Sample:
             Canonical = Result.iloc[row, 10]
             VAF = Result.iloc[row, 13]
 
-            ir.set_saveopts(img_dir = f'{sample}_IGV/', img_basename = f'{sample}.{Gene}.{Variant}.{Canonical}.{VAF}.png')
+            ir.set_saveopts(img_dir = f'{sample}_IGV/', img_basename = f'{sample}.{Chr}.{str(Start)}.{str(End)}.{Gene}.{Variant}.{Canonical}.{VAF}.png')
             ir.goto(Chr, Start, End)
             ir.snapshot()
 
