@@ -42,5 +42,5 @@ for sample in Sample:
             File_name = f"{sample}.{Gene}.{Variant}.{Canonical}.{VAF}_0.png"
             Modified_name = f"{sample}.{Chr}.{str(Start)}.{str(End)}.{Gene}.{Variant}.{Canonical}.{VAF}_0.png"
             if File_name in os.listdir(f"{sample}_IGV"):
-                command = f"mv {sample}_IGV/{File_name} {sample}_IGV/Modified_name"
+                command = f"mv {sample}_IGV/{File_name} {sample}_IGV/{Modified_name}"
                 os.system(command)
