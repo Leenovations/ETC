@@ -26,7 +26,7 @@ for sample in Sample:
     else:
         ir = igv_remote.IGV_remote()
         ir.connect()
-        ir.load(f'/media/node02-HDD01/00.BPDCN/{sample}/03.Align/{sample}.bam')
+        ir.load(f'/media/run/01.BPDCN/{sample}/{sample}.Real.bam')
 
         for row in range(Result.shape[0]):
             Tier = Result.iloc[row, 2]
