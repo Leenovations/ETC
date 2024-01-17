@@ -40,38 +40,38 @@ CPU = [cpu - 1 if cpu % 2 != 0 else cpu for cpu in CPU]
 #-----------------------------------------------------------------------------#
 if BATCH['Run.type'] == 'WGS':
     Code = '/labmed/00.Code/Pipeline/WGS.py'
-    if os.path.isdir("Intermediate"):
+    if os.path.isdir("Results"):
         pass
     else:
-        command = "mkdir -p Intermediate/"
+        command = "mkdir -p Results/"
         os.system(command)
 elif BATCH['Run.type'] == 'WES':
     Code = '/labmed/00.Code/Pipeline/WES.py'
-    if os.path.isdir("Intermediate"):
+    if os.path.isdir("Results"):
         pass
     else:
-        command = "mkdir -p Intermediate/"
+        command = "mkdir -p Results/"
         os.system(command)
 elif BATCH['Run.type'] == 'WGBS':
     Code = '/labmed/00.Code/Pipeline/WGBS.py'
-    if os.path.isdir("Intermediate"):
+    if os.path.isdir("Results"):
         pass
     else:
-        command = "mkdir -p Intermediate/"
+        command = "mkdir -p Results/"
         os.system(command)
-elif BATCH['Run.type'] == 'mRNA':
+elif BATCH['Run.type'] == 'RNA':
     Code = '/labmed/00.Code/Pipeline/RNASeq.py'
-    if os.path.isdir("Intermediate"):
+    if os.path.isdir("Genecount"):
         pass
     else:
-        command = "mkdir -p Intermediate/"
+        command = "mkdir -p Genecount/"
         os.system(command)
 elif BATCH['Run.type'] == 'Gleevec':
     Code = '/labmed/01.Pipeline/230804.Imatinib.comp.py'
-    if os.path.isdir("Intermediate"):
+    if os.path.isdir("Results"):
         pass
     else:
-        command = "mkdir -p Intermediate/"
+        command = "mkdir -p Results/"
         os.system(command)
 #-----------------------------------------------------------------------------#
 with open('SampleSheet.txt', 'r') as samplesheet:
