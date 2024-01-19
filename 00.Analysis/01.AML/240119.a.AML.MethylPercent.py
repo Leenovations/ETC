@@ -54,9 +54,10 @@ Merged.to_csv('/media/node01-HDD01/00.AML/01.Results/240119.AML.150bp.test.Methy
 #----------------------------------------------------------------------------------------#
 CR = round(Merged.iloc[:, 4:16].mean(axis=1), 2)
 NR = round(Merged.iloc[:, 16:].mean(axis=1), 2)
-Mean = pd.concat([Data.iloc[:,0:4], CR, NR], axis=1)
-Mean.columns = ['Chromosome', 'Start', 'End', 'Strand', 'CR', 'NR']
-Mean.to_csv('/media/node01-HDD01/00.AML/01.Results/240119.AML.150bp.Mean.Methyl.txt',
+Diff = round(CR - NR, 2)
+Mean = pd.concat([Data.iloc[:,0:4], CR, NR, Diff], axis=1)
+Mean.columns = ['Chromosome', 'Start', 'End', 'Strand', 'CR', 'NR', 'CR-NR']
+Mean.to_csv('/media/node01-HDD01/00.AML/01.Results/240119.AML.150bp.Mean.Diff.Methyl.txt',
               sep='\t',
               header='infer',
               index=False)
