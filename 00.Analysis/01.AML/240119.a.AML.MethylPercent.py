@@ -35,7 +35,7 @@ for samp in Sample:
     SAMPLE.append(samp + '_Cs')
     SAMPLE.append(samp + '_Ts')
 #----------------------------------------------------------------------------------------#
-Data = pd.read_csv('/media/node01-HDD01/00.AML/01.Results/240119.AML.test.150bp.txt',
+Data = pd.read_csv('/media/node01-HDD01/00.AML/01.Results/240119.AML.150bp.txt',
                    sep='\t',
                    header=None,
                    names=SAMPLE)
@@ -45,6 +45,10 @@ df_filtered = Data.drop(columns=[col for col in Data.columns if '_Ts' in col])
 DATA = pd.DataFrame()
 for i in range(4, len(df_filtered.columns), 2):
     DATA[df_filtered.columns[i].replace('_Cov', '')] = round(df_filtered.iloc[:, i+1] / df_filtered.iloc[:, i] * 100, 2)
-
+#----------------------------------------------------------------------------------------#
 Merged = pd.concat([Data.iloc[:,0:4], DATA], axis=1)
-print(Merged)
+Merged.to_csv('/media/node01-HDD01/00.AML/01.Results/240119.AML.150bp.Methyl.txt',
+              sep='\t',
+              header='inder',
+              index=False)
+#----------------------------------------------------------------------------------------#
