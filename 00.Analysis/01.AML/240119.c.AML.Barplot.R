@@ -1,5 +1,4 @@
 library(ggplot2)
-library(ggplot2)
 library(cowplot)
 library(ggbiplot)
 library(gridExtra)
@@ -24,8 +23,8 @@ for (gene in Gene){
     xlab('') + 
     ylab('') + 
     ylim(0, 101) + 
-    ggtitle('TAL1\n', subtitle='CR') + 
-    coord_fixed(ratio = 40) + 
+    ggtitle(paste0(gene, '\n'), subtitle='CR') + 
+#     coord_fixed(ratio = 40) + 
     scale_y_continuous(breaks = c(0, 100), labels=c(0, 100), expand = c(0, 1)) + 
     theme(axis.line.x = element_blank(),
           panel.grid.major = element_blank(),
@@ -47,7 +46,7 @@ for (gene in Gene){
     theme_classic() +
     xlab('') + 
     ylab('') + 
-    coord_fixed(ratio = 40) + 
+#     coord_fixed(ratio = 40) + 
     ggtitle('NR') + 
     scale_y_continuous(breaks = c(0, 100), labels=c(0, 100), expand = c(0, 1)) + 
     theme(axis.line.x = element_blank(),
@@ -70,7 +69,7 @@ for (gene in Gene){
     xlab('') + 
     ylab('') + 
     ggtitle('CR vs NR') + 
-    coord_fixed(ratio = 100) + 
+#     coord_fixed(ratio = 100) + 
     geom_hline(yintercept = 0,
               linetype='solid',
               color='black',
