@@ -7,7 +7,6 @@ library(GenomicRanges)
 library(ggpubr)
 library(openxlsx)
 
-# Gene <- c('NFE2')
 Gene <- c('TAL1', 'BCL11A', 'GATA1', 'GATA2', 'NFE2')
 DMR_Data <- read.xlsx('/labmed/11.AML/230625.AML.Total.Data.xlsx', sheet='Methylkit')
 
@@ -148,7 +147,7 @@ for (gene in Gene){
 
   Merged_plot <- ggdraw() +
     draw_plot(Plot) +
-    draw_label(gene, size = 15, x = 0.5, y = 0.93, fontface = "bold.italic")
+    draw_label(gene, size = 13, x = 0.5, y = 0.93, fontface = "bold.italic")
   #---------------------------------------------------------------------------------------------------------#
   ggsave(paste0('/labmed/11.AML/', gene, '.Exon.Bar.anno.png'),
          height=5,
