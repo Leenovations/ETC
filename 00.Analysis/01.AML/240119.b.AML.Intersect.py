@@ -4,7 +4,8 @@ import pandas as pd
 import numpy as np
 import pyranges as pr
 #----------------------------------------------------------------------------------------#
-Genelist = ['TAL1', 'BCL11A', 'GATA1', 'GATA2', 'NFE2']
+# Genelist = ['TAL1', 'BCL11A', 'GATA1', 'GATA2', 'NFE2']
+Genelist = ['TLR1', 'TLR2', 'TLR3', 'TLR4', 'TLR5', 'TLR6', 'TLR7', 'TLR8', 'CD8A', 'CD8B', 'CTLA4']
 for gene in Genelist:
     Bed = pd.read_csv('/media/src/hg19/01.Methylation/00.Bed/NCBI.RefSeq.Selected.±.5kb.Gene.bed',
                     sep='\t',
