@@ -7,6 +7,7 @@ library(GenomicRanges)
 library(ggpubr)
 library(openxlsx)
 
+# Gene <- c('NFE2')
 Gene <- c('TAL1', 'BCL11A', 'GATA1', 'GATA2', 'NFE2')
 DMR_Data <- read.xlsx('/labmed/11.AML/230625.AML.Total.Data.xlsx', sheet='Methylkit')
 
@@ -26,7 +27,6 @@ for (gene in Gene){
     theme_classic() +
     xlab('') + 
     ylab('') + 
-    ylim(0, 101) + 
     ggtitle(paste0('', '\n'), subtitle='CR') +
     scale_y_continuous(breaks = c(0, 100), labels=c(0, 100)) + 
     theme(axis.line.x = element_blank(),
@@ -38,7 +38,8 @@ for (gene in Gene){
           axis.title = element_text(size = 10),
           axis.text=element_text(color="black"),
           axis.ticks.x=element_blank(),
-          axis.text.x=element_blank())
+          axis.text.x=element_blank()) +
+    coord_cartesian(ylim = c(0 ,100), expand = T, clip = "off")
   #---------------------------------------------------------------------------------------------------------#
   NR <- ggplot(data, aes(x = Start, y = NR)) +
     geom_bar(fill = 'lightskyblue',
@@ -59,7 +60,8 @@ for (gene in Gene){
           axis.title = element_text(size = 10),
           axis.text=element_text(color="black"),
           axis.ticks.x=element_blank(),
-          axis.text.x=element_blank())
+          axis.text.x=element_blank()) + 
+    coord_cartesian(ylim = c(0 ,100), expand = T, clip = "off")
   #---------------------------------------------------------------------------------------------------------#
   Data_sub <- subset(DMR_Data, DMR_Data$annot.symbol==gene)
   Range <- unique(Data_sub[,c('start', 'end')])
@@ -148,7 +150,7 @@ for (gene in Gene){
     draw_plot(Plot) +
     draw_label(gene, size = 15, x = 0.5, y = 0.93, fontface = "bold.italic")
   #---------------------------------------------------------------------------------------------------------#
-  ggsave(paste0('/labmed/11.AML/', gene, '.Exon.Bar.png'),
+  ggsave(paste0('/labmed/11.AML/', gene, '.Exon.Bar.anno.png'),
          height=5,
          plot=Merged_plot)
 }
