@@ -62,9 +62,9 @@ for pathway in Pathway[0:1]:
 
         Intersect = pyIsland.join(pyGene_Range).df
         # Intersect = Intersect.drop(['Start_b', 'End_b', 'Strand_b'], axis=1)
-        Intersect = pd.DataFrame(Intersect)
-        Intersect = Intersect.join(pyData).df
-        Intersect = round(Intersect.groupby(['Chromosome', 'Start', 'End']).mean(), 3)
+        # Intersect = pd.DataFrame(Intersect)
+        # Intersect = Intersect.join(pyData).df
+        # Intersect = round(Intersect.groupby(['Chromosome', 'Start', 'End']).mean(), 3)
         print(Intersect)
 
         # Intersect = pyShore.join(pyGene_Range).df
