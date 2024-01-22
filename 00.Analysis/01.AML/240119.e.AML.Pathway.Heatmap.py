@@ -108,29 +108,32 @@ for pathway in Pathway[0:1]:
         pyGene_Promoter = pr.PyRanges(Gene_Promoter)
 
         Intersect = pyGene_Promoter.join(pyData).df
-        Intersect = Intersect.drop(['Start', 'End', 'Start_b', 'End_b', 'Strand_b'], axis=1)
-        Intersect = Intersect.astype({'Chromosome': 'str'})
-        Intersect = round(Intersect.groupby(['Chromosome']).mean(), 3)
-        Intersect = Intersect.fillna('NaN')
-        PROMOTER.append(Intersect)
+        if not pd.DataFrame(Intersect).empty:
+            Intersect = Intersect.drop(['Start', 'End', 'Start_b', 'End_b', 'Strand_b'], axis=1)
+            Intersect = Intersect.astype({'Chromosome': 'str'})
+            Intersect = round(Intersect.groupby(['Chromosome']).mean(), 3)
+            Intersect = Intersect.fillna('NaN')
+            PROMOTER.append(Intersect)
         #-----------------------------------------------------------------------------------------------------------------------------------#
         Gene_Exon = Exon[(Exon['GeneSymbol'] == gene) & (Exon['Chromosome'].str.contains('_') == False) & (Exon['Region'] == 'exon')]
         pyGene_Exon = pr.PyRanges(Gene_Exon)
 
         Intersect = pyGene_Exon.join(pyData).df
-        Intersect = Intersect.drop(['Start', 'End', 'Start_b', 'End_b', 'Strand_b'], axis=1)
-        Intersect = Intersect.astype({'Chromosome': 'str'})
-        Intersect = round(Intersect.groupby(['Chromosome']).mean(), 3)
-        Intersect = Intersect.fillna('NaN')
-        EXON.append(Intersect)
+        if not pd.DataFrame(Intersect).empty:
+            Intersect = Intersect.drop(['Start', 'End', 'Start_b', 'End_b', 'Strand_b'], axis=1)
+            Intersect = Intersect.astype({'Chromosome': 'str'})
+            Intersect = round(Intersect.groupby(['Chromosome']).mean(), 3)
+            Intersect = Intersect.fillna('NaN')
+            EXON.append(Intersect)
         #-----------------------------------------------------------------------------------------------------------------------------------#
         Gene_Intron = Exon[(Exon['GeneSymbol'] == gene) & (Exon['Chromosome'].str.contains('_') == False) & (Exon['Region'] == 'intron')]
         pyGene_Intron = pr.PyRanges(Gene_Intron)
 
         Intersect = pyGene_Intron.join(pyData).df
-        Intersect = Intersect.drop(['Start', 'End', 'Start_b', 'End_b', 'Strand_b'], axis=1)
-        Intersect = Intersect.astype({'Chromosome': 'str'})
-        Intersect = round(Intersect.groupby(['Chromosome']).mean(), 3)
-        Intersect = Intersect.fillna('NaN')
-        INTRON.append(Intersect)
+        if not pd.DataFrame(Intersect).empty:
+            Intersect = Intersect.drop(['Start', 'End', 'Start_b', 'End_b', 'Strand_b'], axis=1)
+            Intersect = Intersect.astype({'Chromosome': 'str'})
+            Intersect = round(Intersect.groupby(['Chromosome']).mean(), 3)
+            Intersect = Intersect.fillna('NaN')
+            INTRON.append(Intersect)
         #-----------------------------------------------------------------------------------------------------------------------------------#
