@@ -110,8 +110,8 @@ for (gene in Gene){
     annotate(geom = "text", x = median(c(data$Start[1], data$End[nrow(data)])), y = -110, label = "CpG island", size = 2, fontface=2) +
     annotate(geom = "rect", xmin=CpG_island_table$Start, xmax=CpG_island_table$End, ymin=-120 , ymax=-135, color="darkgreen", fill='darkgreen') +
     annotate(geom = "text", x = median(c(data$Start[1], data$End[nrow(data)])), y = -150, label = "Exon/Intron", size = 2, fontface=2) +
-    annotate(geom = "rect", xmin=Exon$Start, xmax=Exon$End, ymin=-160 , ymax=-180, color="gray30", fill='gray30') +
-    annotate(geom = "rect", xmin=Intron$Start, xmax=Intron$End, ymin=-169 , ymax=-171, color="gray30", fill='gray30') +
+    annotate(geom = "rect", xmin=Exon$Start, xmax=Exon$End, ymin=-160 , ymax=-180, color="navy", fill='navy') +
+    annotate(geom = "rect", xmin=Intron$Start, xmax=Intron$End, ymin=-169 , ymax=-171, color="navy", fill='navy') +
     coord_cartesian(ylim = c(-50, 50), expand = T, clip = "off")
   #---------------------------------------------------------------------------------------------------------#
   Data <- read.xlsx('/labmed/11.AML/230625.AML.Total.Data.xlsx', sheet='Norm.Over.50')
