@@ -136,4 +136,26 @@ for pathway in Pathway[0:1]:
             Intersect = round(Intersect.groupby(['Chromosome']).mean(), 3)
             Intersect = Intersect.fillna('NaN')
             INTRON.append(Intersect)
-        #-----------------------------------------------------------------------------------------------------------------------------------#
+
+    
+    PROMOTER = pd.concat(PROMOTER)
+    PROMOTER.to_csv(f"{Pathway_name}.Promoter.Methyl.txt", sep='\t', index=False)
+
+    EXON = pd.concat(EXON)
+    EXON.to_csv(f"{Pathway_name}.Exon.Methyl.txt", sep='\t', index=False)
+
+    INTRON = pd.concat(INTRON)
+    INTRON.to_csv(f"{Pathway_name}.Intron.Methyl.txt", sep='\t', index=False)
+
+    CPGISLAND = pd.concat(CPGISLAND)
+    CPGISLAND.to_csv(f"{Pathway_name}.CpGIsland.Methyl.txt", sep='\t', index=False)
+
+    CPGSHORE = pd.concat(CPGSHORE)
+    CPGSHORE.to_csv(f"{Pathway_name}.CpGIShore.Methyl.txt", sep='\t', index=False)
+
+    CPGSHELF = pd.concat(CPGSHELF)
+    CPGSHELF.to_csv(f"{Pathway_name}.CpGIShelf.Methyl.txt", sep='\t', index=False)
+
+    ENHANCER = pd.concat(ENHANCER)
+    ENHANCER.to_csv(f"{Pathway_name}.Enhancer.Methyl.txt", sep='\t', index=False)
+    #-----------------------------------------------------------------------------------------------------------------------------------#
