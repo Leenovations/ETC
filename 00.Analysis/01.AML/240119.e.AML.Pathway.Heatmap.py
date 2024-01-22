@@ -43,7 +43,7 @@ pyEnhancer = pr.PyRanges(Enhancer)
 Pathway = glob.glob('/labmed/11.AML/03.GeneSet/*Gene.List.txt')
 Pathway.sort()
 
-for pathway in Pathway[0:1]:
+for pathway in Pathway:
     Pathway_name = pathway.split('/')[-1]
     Pathway_name = Pathway_name.replace('.Gene.List.txt', '')
     GeneList = pd.read_csv(pathway, sep='\t', header='infer')
@@ -69,6 +69,7 @@ for pathway in Pathway[0:1]:
                 Intersect = Intersect.drop(['Start', 'End', 'GeneSymbol', 'Start_b', 'End_b'], axis=1)
                 Intersect = round(Intersect.groupby(['Chromosome']).mean(), 3)
                 Intersect = Intersect.reset_index()
+                Intersect = Intersect.drop(['Chromosome'], axis=1)
                 CPGISLAND.append(Intersect)
         #-----------------------------------------------------------------------------------------------------------------------------------#
         Intersect = pyShore.join(pyGene_Range, apply_strand_suffix=False).df
@@ -80,6 +81,7 @@ for pathway in Pathway[0:1]:
                 Intersect = Intersect.drop(['Start', 'End', 'GeneSymbol', 'Start_b', 'End_b'], axis=1)
                 Intersect = round(Intersect.groupby(['Chromosome']).mean(), 3)
                 Intersect = Intersect.reset_index()
+                Intersect = Intersect.drop(['Chromosome'], axis=1)
                 CPGSHORE.append(Intersect)
         #-----------------------------------------------------------------------------------------------------------------------------------#
         Intersect = pyShelf.join(pyGene_Range, apply_strand_suffix=False).df
@@ -91,6 +93,7 @@ for pathway in Pathway[0:1]:
                 Intersect = Intersect.drop(['Start', 'End', 'GeneSymbol', 'Start_b', 'End_b'], axis=1)
                 Intersect = round(Intersect.groupby(['Chromosome']).mean(), 3)
                 Intersect = Intersect.reset_index()
+                Intersect = Intersect.drop(['Chromosome'], axis=1)
                 CPGSHELF.append(Intersect)
         #-----------------------------------------------------------------------------------------------------------------------------------#
         Intersect = pyEnhancer.join(pyGene_Range, apply_strand_suffix=False).df
@@ -139,23 +142,30 @@ for pathway in Pathway[0:1]:
 
     
     PROMOTER = pd.concat(PROMOTER)
+    PROMOTER = PROMOTER.mean()
     PROMOTER.to_csv(f"{Pathway_name}.Promoter.Methyl.txt", sep='\t', index=False)
 
     EXON = pd.concat(EXON)
+    PROMOTER = PROMOTER.mean()
     EXON.to_csv(f"{Pathway_name}.Exon.Methyl.txt", sep='\t', index=False)
 
     INTRON = pd.concat(INTRON)
+    INTRON = INTRON.mean()
     INTRON.to_csv(f"{Pathway_name}.Intron.Methyl.txt", sep='\t', index=False)
 
     CPGISLAND = pd.concat(CPGISLAND)
+    CPGISLAND = CPGISLAND.mean()
     CPGISLAND.to_csv(f"{Pathway_name}.CpGIsland.Methyl.txt", sep='\t', index=False)
 
     CPGSHORE = pd.concat(CPGSHORE)
+    CPGSHORE = CPGSHORE.mean()
     CPGSHORE.to_csv(f"{Pathway_name}.CpGIShore.Methyl.txt", sep='\t', index=False)
 
     CPGSHELF = pd.concat(CPGSHELF)
+    CPGSHELF = CPGSHELF.mean()
     CPGSHELF.to_csv(f"{Pathway_name}.CpGIShelf.Methyl.txt", sep='\t', index=False)
 
     ENHANCER = pd.concat(ENHANCER)
+    ENHANCER = ENHANCER.mean()
     ENHANCER.to_csv(f"{Pathway_name}.Enhancer.Methyl.txt", sep='\t', index=False)
     #-----------------------------------------------------------------------------------------------------------------------------------#
