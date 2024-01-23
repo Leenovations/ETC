@@ -1,7 +1,7 @@
 import pandas as pd 
 
 #---------------------------------------------------------------------------------#
-with open('/media/src/hg19/00.RNA/GeneLength.txt', 'w') as note:
+with open('/media/src/hg19/00.RNA/hg19.GENCODE.v44.GeneLength.txt', 'w') as note:
     with open('/media/src/hg19/00.RNA/hg19.GENCODE.v44.annotation.gtf', 'r') as gtf:
         for line in gtf:
             line = line.strip()
