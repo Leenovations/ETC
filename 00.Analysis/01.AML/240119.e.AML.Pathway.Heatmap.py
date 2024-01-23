@@ -146,7 +146,7 @@ for pathway in Pathway:
     PROMOTER.to_csv(f"{Pathway_name}.Promoter.Methyl.txt", sep='\t', index=False)
 
     EXON = pd.concat(EXON)
-    PROMOTER = PROMOTER.mean()
+    EXON = EXON.mean()
     EXON.to_csv(f"{Pathway_name}.Exon.Methyl.txt", sep='\t', index=False)
 
     INTRON = pd.concat(INTRON)
