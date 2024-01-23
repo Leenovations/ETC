@@ -26,4 +26,4 @@ with open('/media/src/hg19/00.RNA/GeneLength.txt', 'w') as note:
                     Gene_Symbol = Description[2].split(' ')[2]
                     Gene_Symbol = Gene_Symbol.replace('"', '')
 
-                    note.write('\t'.join([Gene_ID, Gene_type, Gene_Symbol, Length, '\n']))
+                    note.write('\t'.join([Gene_ID, Gene_type, Gene_Symbol, Length]) + '\n')
