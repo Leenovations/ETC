@@ -8,10 +8,10 @@ library(ggpubr)
 library(openxlsx)
 
 Gene <- c('TAL1', 'BCL11A', 'GATA1', 'GATA2', 'NFE2')
-DMR_Data <- read.xlsx('/labmed/11.AML/230625.AML.Total.Data.xlsx', sheet='Methylkit')
+DMR_Data <- read.xlsx('/labmed/01.AML/240123.AML.Total.Info.xlsx', sheet='Methylkit')
 
 for (gene in Gene){
-  data <- read.table(paste0('/media/node01-HDD01/00.AML/01.Results/240119.AML.150bp.', gene, '.Methyl.txt'),
+  data <- read.table(paste0('/labmed/01.AML/01.WGBS/240119.AML.150bp.', gene, '.Methyl.txt'),
                      sep='\t',
                      header=TRUE)
   
@@ -114,22 +114,23 @@ for (gene in Gene){
     annotate(geom = "rect", xmin=Intron$Start, xmax=Intron$End, ymin=-169 , ymax=-171, color="navy", fill='navy') +
     coord_cartesian(ylim = c(-50, 50), expand = T, clip = "off")
   #---------------------------------------------------------------------------------------------------------#
-  Data <- read.xlsx('/labmed/11.AML/230625.AML.Total.Data.xlsx', sheet='Norm.Over.50')
+  Data <- read.xlsx('/labmed/01.AML/240123.AML.Total.Info.xlsx', sheet='RNA_TPM')
+  Data <- Data[-1]
 
-  Sub_Data <- subset(Data, Data$Gene == gene)
+  Sub_Data <- subset(Data, Data$GeneSymbol == gene)
   Sub_Data <- Sub_Data[-1]
   Trans_Data <- t(Sub_Data)
   Trans_Data <- as.data.frame(Trans_Data)
-  colnames(Trans_Data) <- c('NormConunt')
+  colnames(Trans_Data) <- c('TPM')
   Trans_Data$Group <- rep(c('CR', 'NR'), c(8, 5))
 
   Barplot <- ggboxplot(Trans_Data, 
                        x = "Group", 
-                       y = "NormConunt", 
+                       y = "TPM", 
                        fill = "Group", 
                        palette = c("tan1", "lightskyblue"), 
                        width = 0.3) + 
-    ylab(paste0('\n', 'Normalized count')) + 
+    ylab(paste0('\n', 'TPM')) + 
     scale_x_discrete(limits = c("NR", "CR")) +
     coord_flip() +
     theme(plot.margin = margin(2.5, 1, 2.5, 1, "cm"),
@@ -149,7 +150,7 @@ for (gene in Gene){
     draw_plot(Plot) +
     draw_label(gene, size = 13, x = 0.5, y = 0.93, fontface = "bold.italic")
   #---------------------------------------------------------------------------------------------------------#
-  ggsave(paste0('/labmed/11.AML/', gene, '.Exon.Bar.anno.png'),
+  ggsave(paste0('/labmed/01.AML/04.Results/00.Plots/', gene, '.Exon.Bar.anno.png'),
          height=5,
          plot=Merged_plot)
 }
