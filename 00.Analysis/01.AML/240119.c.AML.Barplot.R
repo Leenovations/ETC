@@ -7,7 +7,7 @@ library(GenomicRanges)
 library(ggpubr)
 library(openxlsx)
 
-Gene <- c('TAL1', 'BCL11A', 'GATA1', 'GATA2', 'NFE2')
+Gene <- c('TLR1', 'TLR2', 'TLR3', 'TLR4', 'TLR5', 'TLR6', 'TLR7', 'TLR8', 'CD8A', 'CD8B', 'CTLA4')
 DMR_Data <- read.xlsx('/labmed/01.AML/240123.AML.Total.Info.xlsx', sheet='Methylkit')
 
 for (gene in Gene){
