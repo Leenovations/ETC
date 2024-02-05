@@ -123,6 +123,7 @@ for (gene in Gene){
   Trans_Data <- as.data.frame(Trans_Data)
   colnames(Trans_Data) <- c('TPM')
   Trans_Data$Group <- rep(c('CR', 'NR'), c(8, 5))
+  Trans_Data$TPM <- -log10(Trans_Data$TPM)
 
   Barplot <- ggboxplot(Trans_Data, 
                        x = "Group", 
@@ -130,7 +131,7 @@ for (gene in Gene){
                        fill = "Group", 
                        palette = c("tan1", "lightskyblue"), 
                        width = 0.3) + 
-    ylab(paste0('\n', 'TPM')) + 
+    ylab(paste0("\n", "-Log[10]TPM")) + 
     scale_x_discrete(limits = c("NR", "CR")) +
     coord_flip() +
     theme(plot.margin = margin(2.5, 1, 2.5, 1, "cm"),
