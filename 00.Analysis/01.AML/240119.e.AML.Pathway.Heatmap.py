@@ -3,7 +3,7 @@ import numpy as np
 import pyranges as pr
 import glob
 #----------------------------------------------------------------------------------------#
-Data = pd.read_csv('/labmed/11.AML/240119.AML.150bp.Methyl.txt',
+Data = pd.read_csv('/labmed/01.AML/01.WGBS/240119.AML.150bp.Methyl.txt',
                     sep='\t',
                     header='infer')
 pyData = pr.PyRanges(Data)
@@ -40,7 +40,7 @@ Enhancer = pd.read_csv('/media/src/hg19/01.Methylation/00.Bed/Inhancer.anno.bed'
                    names = ['Chromosome', 'Start', 'End' ,'GeneSymbol', 'Region', 'Strand'])
 pyEnhancer = pr.PyRanges(Enhancer)
 #----------------------------------------------------------------------------------------#
-Pathway = glob.glob('/labmed/11.AML/03.GeneSet/*Gene.List.txt')
+Pathway = glob.glob('/labmed/01.AML/03.Common/00.GeneSet/*Gene.List.txt')
 Pathway.sort()
 
 for pathway in Pathway:

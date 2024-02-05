@@ -42,4 +42,4 @@ def Cal(bed, prefix, *colnames):
                         header='infer',
                         index=False)
     #-------------------------------------------------------------------------------------#
-Cal('/media/src/hg19/01.Methylation/00.Bed/100000bp.bed', '100kb', 'Chromosome', 'Start', 'End')
+Cal('/media/src/hg19/01.Methylation/00.Bed/1000000bp.bed', '1MB', 'Chromosome', 'Start', 'End')

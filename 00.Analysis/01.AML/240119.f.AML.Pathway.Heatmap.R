@@ -7,17 +7,17 @@ setwd('/labmed/01.AML/')
 #--------------------------------------------------------------------------------#
 Name <- read_excel('/labmed/01.AML/240123.AML.Total.Info.xlsx', sheet = 'Sample_Call')
 #--------------------------------------------------------------------------------#
-Pathway <- list.files('/labmed/01.AML/03.Common/00.GeneSet/', '\\.')
+Pathway <- list.files('/labmed/01.AML/01.WGBS/02.Gene.Methyl/', '_')
 Pathway <- strsplit(Pathway, '\\.')
 Pathway <- sapply(Pathway, function(x) x[1])
 #--------------------------------------------------------------------------------#
 for (pathway in Pathway){
   Sample <- data.frame(sample=na.omit(Name$WGBS))
-  GO <- list.files('/labmed/01.AML/01.WGBS/00.Pathway/', pathway)
+  GO <- list.files('/labmed/01.AML/01.WGBS/02.Gene.Methyl/', pathway)
   for (go in GO){
     Header <- strsplit(go, '\\.')
     Header <- sapply(Header, function(x) x[2])
-    Data <- read.table(paste0('/labmed/01.AML/01.WGBS/00.Pathway/', go), 
+    Data <- read.table(paste0('/labmed/01.AML/01.WGBS/02.Gene.Methyl/', go), 
                        sep='\t', 
                        header = T,
                        col.names=Header)
@@ -56,7 +56,7 @@ for (pathway in Pathway){
                       scale = "row",
                       main = paste0(gsub('_', ' ', pathway), '\n'))
 
-  png(paste0('/labmed/01.AML/04.Results/00.Plot/', pathway, ".heatmap.png"), width = 2000, height = 2000, units = "px",res = 300)
+  png(paste0('/labmed/01.AML/04.Results/00.Plots/', pathway, ".heatmap.png"), width = 2000, height = 2000, units = "px",res = 300)
   print(Heatmap)
   dev.off()
 }
