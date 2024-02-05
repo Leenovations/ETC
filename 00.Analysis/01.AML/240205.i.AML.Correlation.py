@@ -8,7 +8,7 @@ AML = pd.read_csv('/labmed/01.AML/AML.Correlation.txt',
 
 Index = pd.Series(AML.iloc[:,0]).tolist()
 AML.index = Index
-AML = AML.drop('Order', axis=1)
+AML = AML.drop('Sample', axis=1)
 
 colormap = plt.cm.gist_heat
 plt.figure(figsize=(15,12))
