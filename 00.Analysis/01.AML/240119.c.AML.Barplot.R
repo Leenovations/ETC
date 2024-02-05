@@ -7,7 +7,7 @@ library(GenomicRanges)
 library(ggpubr)
 library(openxlsx)
 
-Gene <- c('TLR1', 'TLR2', 'TLR3', 'TLR4', 'TLR5', 'TLR6', 'TLR7', 'TLR8', 'CD8A', 'CD8B', 'CTLA4')
+Gene <- c('TAL1', 'BCL11A', 'GATA1', 'GATA2', 'NFE2', 'TLR1', 'TLR2', 'TLR3', 'TLR4', 'TLR5', 'TLR6', 'TLR7', 'TLR8', 'CD8A', 'CD8B', 'CTLA4')
 DMR_Data <- read.xlsx('/labmed/01.AML/240123.AML.Total.Info.xlsx', sheet='Methylkit')
 
 for (gene in Gene){
@@ -130,8 +130,9 @@ for (gene in Gene){
                        y = "TPM", 
                        fill = "Group", 
                        palette = c("tan1", "lightskyblue"), 
-                       width = 0.3) + 
-    ylab(paste0("\n", "-Log[10]TPM")) + 
+                       width = 0.3,
+                       outlier.shape = NA) + 
+    ylab(paste0("\n", -Log[10]~TPM)) + 
     scale_x_discrete(limits = c("NR", "CR")) +
     coord_flip() +
     theme(plot.margin = margin(2.5, 1, 2.5, 1, "cm"),
