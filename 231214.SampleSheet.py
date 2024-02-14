@@ -25,22 +25,22 @@ with open('SampleSheet.txt', 'w') as note1:
 					Second = data.replace('_R1', '_R2')
 					note2.write(Name + '\t' + First+ '\t' + Second + '\n')
 
-			elif '_1.data.gz' in data:
+			elif '_1.fastq.gz' in data:
 				Name = data.split('/')[-1]
-				Name = Name.split('_1.data.gz')[0]
+				Name = Name.split('_1.fastq.gz')[0]
 				command = f'mkdir {Name}'
 				os.system(command)
 				Size = os.path.getsize(data)
 
-				name = data.split('_1.data.gz')[0]
+				name = data.split('_1.fastq.gz')[0]
 				First = data
-				Second = data.replace('_1.data.gz', '_2.data.gz')
+				Second = data.replace('_1.fastq.gz', '_2.fastq.gz')
 				note1.write(Name + '\t' + First+ '\t' + Second + '\t' + str(Size) + '\n')
 
 				with open(f'{Name}/SampleSheet.txt', 'w') as note2:
-					name = data.split('_1.data.gz')[0]
+					name = data.split('_1.fastq.gz')[0]
 					First = data
-					Second = data.replace('_1.data.gz', '_2.data.gz')
+					Second = data.replace('_1.fastq.gz', '_2.fastq.gz')
 					note2.write(Name + '\t' + First+ '\t' + Second + '\n')
 
 			elif '_1.data' in data:
