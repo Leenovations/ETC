@@ -6,7 +6,7 @@ LIST = sys.argv[1:]
 
 with open('SampleSheet.txt', 'w') as note1:
 	for data in LIST:
-		if data.split('.')[-1] == 'data' or data.split('.')[-1] == 'gz':
+		if data.split('.')[-1] == 'fastq' or data.split('.')[-1] == 'gz':
 			if '_R1' in data:
 				Name = data.split('/')[-1]
 				Name = Name.split('_R1')[0]
@@ -43,7 +43,7 @@ with open('SampleSheet.txt', 'w') as note1:
 					Second = data.replace('_1.fastq.gz', '_2.fastq.gz')
 					note2.write(Name + '\t' + First+ '\t' + Second + '\n')
 
-			elif '_1.data' in data:
+			elif '_1.fastq' in data:
 				Name = data.split('/')[-1]
 				Name = Name.split('_1.data')[0]
 				command = f'mkdir {Name}'
