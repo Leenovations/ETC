@@ -45,20 +45,20 @@ with open('SampleSheet.txt', 'w') as note1:
 
 			elif '_1.fastq' in data:
 				Name = data.split('/')[-1]
-				Name = Name.split('_1.data')[0]
+				Name = Name.split('_1.fastq')[0]
 				command = f'mkdir {Name}'
 				os.system(command)
 				Size = os.path.getsize(data)
 
-				name = data.split('_1.data')[0]
+				name = data.split('_1.fastq')[0]
 				First = data
-				Second = data.replace('_1.data', '_2.data')
+				Second = data.replace('_1.fastq', '_2.fastq')
 				note1.write(Name + '\t' + First+ '\t' + Second + '\t' + str(Size) + '\n')
 
 				with open(f'{Name}/SampleSheet.txt', 'w') as note2:
-					name = data.split('_1.data')[0]
+					name = data.split('_1.fastq')[0]
 					First = data
-					Second = data.replace('_1.data', '_2.data')
+					Second = data.replace('_1.fastq', '_2.fastq')
 					note2.write(Name + '\t' + First+ '\t' + Second + '\n')
 
 		elif data.split('.')[-1] == 'bam':
