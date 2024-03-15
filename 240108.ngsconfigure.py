@@ -55,6 +55,8 @@ elif BATCH['Node'] == 'node04' and int(BATCH['CPU']) > 28:
 if BATCH['Node'] == 'node04':
     Cpu = int(BATCH['CPU'])
     Allocated_CPU = int(Cpu / Sample_Count)
+    if Allocated_CPU < 1:
+        raise ValueError("\033[91m" + "ValueError: Allocated CPU is less than 1" + "\033[0m")
     CPU = [Allocated_CPU] * Sample_Count
     How_many = int(Cpu % Sample_Count) #분배를 1씩 해주는 경우 -> 용량에 따라 나누어야함
     for idx in Sample_Size_Idx[:How_many]:
