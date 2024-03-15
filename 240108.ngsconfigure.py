@@ -33,6 +33,15 @@ with open('batch.config', 'r') as batch:
         Value = splitted[1]
         BATCH[Key] = Value
 #-----------------------------------------------------------------------------#
+if BATCH['Node'] == 'node01' and int(BATCH['CPU']) > 128:
+    raise ValueError("\033[91mValueError: Total CPU is less than 128\033[0m")
+elif BATCH['Node'] == 'node02' and int(BATCH['CPU']) > 56:
+    raise ValueError("\033[91mValueError: Total CPU is less than 56\033[0m")
+elif BATCH['Node'] == 'node03' and int(BATCH['CPU']) > 32:
+    raise ValueError("\033[91mValueError: Total CPU is less than 32\033[0m")
+elif BATCH['Node'] == 'node04' and int(BATCH['CPU']) > 28:
+    raise ValueError("\033[91mValueError: Total CPU is less than 28\033[0m")
+#-----------------------------------------------------------------------------#
 if {BATCH['Node']} == 'node04':
     Cpu = int(BATCH['CPU'])
     Allocated_CPU = int(Cpu / Sample_Count)
@@ -41,22 +50,23 @@ elif {BATCH['Node']} != 'node04':
     Cpu = int(BATCH['CPU'])
     Allocated_CPU = int(Cpu / Sample_Count)
     if Allocated_CPU < 2:
-        raise ValueError("Allocated CPU is less than 2")
+        raise ValueError("\033[91m" + "ValueError: Allocated CPU is less than 2" + "\033[0m")
     elif Allocated_CPU >= 2:
-        if (Allocated_CPU / 2) % 2 == 0:
-            CPU = [Allocated_CPU] * Sample_Count
-        elif (Allocated_CPU / 2) % 2 == 1:
+        if Allocated_CPU % 2 == 0:
+            if int(Cpu % Sample_Count) < 2:
+                CPU = [Allocated_CPU] * Sample_Count
+            elif int(Cpu % Sample_Count) >= 2:
+                CPU = [Allocated_CPU] * Sample_Count
+                How_many = int((Cpu % Sample_Count) / 2) #분배를 2씩 해주는 경우 -> 용량에 따라 나누어야함
+                for idx in range(0, How_many):
+                    CPU[idx] = CPU[idx] + 2
+        elif Allocated_CPU % 2 == 1:
             CPU = [Allocated_CPU - 1] * Sample_Count
             Rest_CPU = Sample_Count + Allocated_CPU % Sample_Count - 1
             How_many = int(Rest_CPU / 2) #분배를 2씩 해주는 경우 -> 용량에 따라 나누어야함
             for idx in range(0, How_many):
                 CPU[idx] = CPU[idx] + 2
 #-----------------------------------------------------------------------------#        
-Cpu = int(BATCH['CPU'])
-intervals = np.linspace(1, Cpu, Sample_Count + 1, dtype=int)
-CPU = np.diff(intervals)
-CPU = [cpu - 1 if cpu % 2 != 0 else cpu for cpu in CPU]
-#-----------------------------------------------------------------------------#
 if BATCH['Run.type'] == 'WGS':
     Code = '/labmed/00.Code/Pipeline/WGS.py'
     if os.path.isdir("Results"):
