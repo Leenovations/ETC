@@ -32,7 +32,26 @@ with open('batch.config', 'r') as batch:
         Key = splitted[0]
         Value = splitted[1]
         BATCH[Key] = Value
-#-----------------------------------------------------------------------------#    
+#-----------------------------------------------------------------------------#
+if {BATCH['Node']} == 'node04':
+    Cpu = int(BATCH['CPU'])
+    Allocated_CPU = int(Cpu / Sample_Count)
+    CPU = [Allocated_CPU] * Sample_Count
+elif {BATCH['Node']} != 'node04':
+    Cpu = int(BATCH['CPU'])
+    Allocated_CPU = int(Cpu / Sample_Count)
+    if Allocated_CPU < 2:
+        raise ValueError("Allocated CPU is less than 2")
+    elif Allocated_CPU >= 2:
+        if (Allocated_CPU / 2) % 2 == 0:
+            CPU = [Allocated_CPU] * Sample_Count
+        elif (Allocated_CPU / 2) % 2 == 1:
+            CPU = [Allocated_CPU - 1] * Sample_Count
+            Rest_CPU = Sample_Count + Allocated_CPU % Sample_Count - 1
+            How_many = int(Rest_CPU / 2) #분배를 2씩 해주는 경우 -> 용량에 따라 나누어야함
+            for idx in range(0, How_many):
+                CPU[idx] = CPU[idx] + 2
+#-----------------------------------------------------------------------------#        
 Cpu = int(BATCH['CPU'])
 intervals = np.linspace(1, Cpu, Sample_Count + 1, dtype=int)
 CPU = np.diff(intervals)
