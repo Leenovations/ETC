@@ -42,14 +42,16 @@ elif BATCH['Node'] == 'node03' and int(BATCH['CPU']) > 32:
 elif BATCH['Node'] == 'node04' and int(BATCH['CPU']) > 28:
     raise ValueError("\033[91mValueError: Total CPU is less than 28\033[0m")
 #-----------------------------------------------------------------------------#
-if {BATCH['Node']} == 'node04':
+if BATCH['Node'] == 'node04':
     Cpu = int(BATCH['CPU'])
+    print(Cpu)
     Allocated_CPU = int(Cpu / Sample_Count)
     CPU = [Allocated_CPU] * Sample_Count
     How_many = int(Cpu % Sample_Count) #분배를 1씩 해주는 경우 -> 용량에 따라 나누어야함
+    print(How_many)
     for idx in range(0, How_many):
         CPU[idx] += 1
-elif {BATCH['Node']} != 'node04':
+elif BATCH['Node'] != 'node04':
     Cpu = int(BATCH['CPU'])
     Allocated_CPU = int(Cpu / Sample_Count)
     if Allocated_CPU < 2:
