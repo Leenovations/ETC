@@ -57,7 +57,7 @@ if BATCH['Node'] == 'node04':
     Allocated_CPU = int(Cpu / Sample_Count)
     CPU = [Allocated_CPU] * Sample_Count
     How_many = int(Cpu % Sample_Count) #분배를 1씩 해주는 경우 -> 용량에 따라 나누어야함
-    for idx in range(0, How_many):
+    for idx in Sample_Size_Idx[:How_many]:
         CPU[idx] += 1
 elif BATCH['Node'] != 'node04':
     Cpu = int(BATCH['CPU'])
@@ -71,13 +71,13 @@ elif BATCH['Node'] != 'node04':
             elif int(Cpu % Sample_Count) >= 2:
                 CPU = [Allocated_CPU] * Sample_Count
                 How_many = int((Cpu % Sample_Count) / 2) #분배를 2씩 해주는 경우 -> 용량에 따라 나누어야함
-                for idx in range(0, How_many):
+                for idx in Sample_Size_Idx[:How_many]:
                     CPU[idx] += 2
         elif Allocated_CPU % 2 == 1:
             CPU = [Allocated_CPU - 1] * Sample_Count
             Rest_CPU = Sample_Count + Cpu % Sample_Count
             How_many = int(Rest_CPU / 2) #분배를 2씩 해주는 경우 -> 용량에 따라 나누어야함
-            for idx in range(0, How_many):
+            for idx in Sample_Size_Idx[:How_many]:
                 CPU[idx] += 2
 #-----------------------------------------------------------------------------#        
 if BATCH['Run.type'] == 'WGS':
