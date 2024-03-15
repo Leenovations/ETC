@@ -16,13 +16,23 @@ with open('SampleSheet.txt', 'r') as samplesheet:
     Sample_Count = 0
     Sample_Dir = []
     Sample_Name = []
+    Sample_Size = []
     for line in samplesheet:
         Sample_name = line.split('\t')[0]
         Sample_Name.append(Sample_name)
+        Sample_size = line.split('\t')[3].replace(' MB', '')
+        Sample_Size.append(float(Sample_size))
         Sample_Count += 1
         Sample_Dir.append(Dir + '/' + Sample_name + '/')
     Sample_Dir = ','.join(Sample_Dir)
     Sample_Name = ','.join(Sample_Name)
+
+Sample_Size_Sorted = sorted(Sample_Size, reverse=True)
+Sample_Size_Idx = []
+for num in Sample_Size_Sorted:
+    idx = Sample_Size.index(num)
+    Sample_Size_Idx.append(idx)
+    Sample_Size[idx] = 0
 #-----------------------------------------------------------------------------#
 BATCH = {}
 with open('batch.config', 'r') as batch:
@@ -44,11 +54,9 @@ elif BATCH['Node'] == 'node04' and int(BATCH['CPU']) > 28:
 #-----------------------------------------------------------------------------#
 if BATCH['Node'] == 'node04':
     Cpu = int(BATCH['CPU'])
-    print(Cpu)
     Allocated_CPU = int(Cpu / Sample_Count)
     CPU = [Allocated_CPU] * Sample_Count
     How_many = int(Cpu % Sample_Count) #분배를 1씩 해주는 경우 -> 용량에 따라 나누어야함
-    print(How_many)
     for idx in range(0, How_many):
         CPU[idx] += 1
 elif BATCH['Node'] != 'node04':
