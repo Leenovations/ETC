@@ -111,7 +111,7 @@ elif BATCH['Run.type'] == 'RNA':
         command = "mkdir -p Genecount/"
         os.system(command)
 elif BATCH['Run.type'] == 'Gleevec':
-    Code = '/labmed/01.Pipeline/230804.Imatinib.comp.py'
+    Code = '/labmed/00.Code/Pipeline/Imatinib.py'
     if os.path.isdir("Results"):
         pass
     else:
