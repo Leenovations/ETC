@@ -4,6 +4,10 @@ import os
 
 LIST = sys.argv[1:]
 
+with open('Datalist.txt', 'w') as note2:
+	for data in LIST:
+		note2.write(data + '\n')
+
 if len(LIST) % 2 == 0:
 	pass
 else:
