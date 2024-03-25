@@ -4,15 +4,16 @@ import os
 
 LIST = sys.argv[1:]
 
-with open('Datalist.txt', 'w') as note2:
-	for data in LIST:
-		note2.write(data + '\n')
 
 if len(LIST) % 2 == 0:
 	pass
 else:
 	raise ValueError("\033[91mThe number of raw data files is odd\033[0m")
 
+with open('Datalist.txt', 'w') as note2:
+	for data in LIST:
+		note2.write(data + '\n')
+		
 with open('SampleSheet.txt', 'w') as note1:
 	for data in LIST:
 		if data.split('.')[-1] == 'fastq' or data.split('.')[-1] == 'gz':

@@ -30,7 +30,7 @@ if sys.argv[1] == 'fasterq-dump':
                         '#SBATCH --time=UNLIMITED' + '\n' + \
                         f'#SBATCH --nodelist={sys.argv[2]}' + '\n' + \
                         '#SBATCH -n 4' + '\n' + '\n' + \
-                        f'fasterq-dump -S -t TEMP/ -e 8 -m 5000MB -O ../ {sra}')
+                        f'/media/src/Tools/sratoolkit.3.0.2-ubuntu64/bin/fasterq-dump -S -t TEMP/ -e 8 -m 5000MB -O ../ {sra}')
 
     with open('Total.Run.sh', 'w') as note:
         for sra in SRA_list:
@@ -49,7 +49,7 @@ elif sys.argv[1] == 'fastq-dump':
                         '#SBATCH --time=UNLIMITED' + '\n' + \
                         f'#SBATCH --nodelist={sys.argv[2]}' + '\n' + \
                         '#SBATCH -n 2' + '\n' + '\n' + \
-                        f'fastq-dump --split-files -gzip --outdir ../ {sra}')
+                        f'/media/src/Tools/sratoolkit.3.0.2-ubuntu64/bin/fastq-dump --split-files -gzip --outdir ../ {sra}')
 
     with open('Total.Run.sh', 'w') as note:
         for sra in SRA_list:
