@@ -2,6 +2,7 @@ from lxml import etree
 import pandas as pd
 #--------------------------------------------------------------------------------------#
 tree = etree.parse('/media/src/Classification/ClinVarVCVRelease_00-latest_weekly.xml')
+# tree = etree.parse('/media/src/Classification/test.xml')
 root = tree.getroot()
 #--------------------------------------------------------------------------------------#
 Info = root.findall("VariationArchive/ClassifiedRecord")
@@ -14,12 +15,13 @@ for info in Info:
             Total[NM_accession.get('sequenceAccessionVersion')] = {}
             Total[NM_accession.get('sequenceAccessionVersion')]['NMsequenceAccession'] = NM_accession.get('sequenceAccession')
             Total[NM_accession.get('sequenceAccessionVersion')]['NMsequenceVersion'] = NM_accession.get('sequenceVersion')
+            Total[NM_accession.get('sequenceAccessionVersion')]['NMchange'] = NM_accession.get('change')
             if 'MANESelect' in NM_accession:
                 Total[NM_accession.get('sequenceAccessionVersion')]['MANESelect'] = 'O'
             else:
                 Total[NM_accession.get('sequenceAccessionVersion')]['MANESelect'] = 'X'
-            MolecularConsequence = hgvslist.find("../MolecularConsequence").attrib
-            Total[NM_accession.get('sequenceAccessionVersion')]['NMType'] = MolecularConsequence.get('Type')
+            # MolecularConsequence = hgvslist.find("../MolecularConsequence").attrib
+            # Total[NM_accession.get('sequenceAccessionVersion')]['NMType'] = MolecularConsequence.get('Type')
             if hgvslist.find("../ProteinExpression") != None:
                 ProteinExpression = hgvslist.find("../ProteinExpression").attrib
                 Total[NM_accession.get('sequenceAccessionVersion')]['NPsequenceAccession'] = ProteinExpression.get('sequenceAccession')
@@ -49,9 +51,9 @@ for info in Info:
             Location = Location.text
             Total[NM_accession.get('sequenceAccessionVersion')]['Location'] = Location
             #--------------------------------------------------------------------------------------#
-            Strand = info.find("SimpleAllele/GeneList/Gene/Location/SequenceLocation[@Assembly='GRCh37']")
-            Strand = Strand.get('Strand')
-            Total[NM_accession.get('sequenceAccessionVersion')]['Strand'] = Strand
+            # Strand = info.find("SimpleAllele/GeneList/Gene/Location/SequenceLocation[@Assembly='GRCh37']")
+            # Strand = Strand.get('Strand')
+            # Total[NM_accession.get('sequenceAccessionVersion')]['Strand'] = Strand
             #--------------------------------------------------------------------------------------#
             OMIM = info.find("SimpleAllele/GeneList/Gene/OMIM")
             OMIM = OMIM.text
@@ -62,7 +64,7 @@ for info in Info:
             Total[NM_accession.get('sequenceAccessionVersion')]['RCV'] = RCV_accession
             #--------------------------------------------------------------------------------------#
             Class = info.find("Classifications/GermlineClassification/Description").text
-            Synonym =  info.find("Classifications/GermlineClassification/ConditionList/TraitSet/Trait/Symbol/ElementValue").text
+            # Synonym =  info.find("Classifications/GermlineClassification/ConditionList/TraitSet/Trait/Symbol/ElementValue").text
             Disease_info =  info.findall("Classifications/GermlineClassification/ConditionList/TraitSet/Trait/Name")
 
             DISESE_INFO = []
@@ -72,10 +74,10 @@ for info in Info:
             DISESE_INFO = (', '.join(DISESE_INFO))
             
             Total[NM_accession.get('sequenceAccessionVersion')]['Class'] = Class
-            Total[NM_accession.get('sequenceAccessionVersion')]['Synonym'] = Synonym
+            # Total[NM_accession.get('sequenceAccessionVersion')]['Synonym'] = Synonym
             Total[NM_accession.get('sequenceAccessionVersion')]['Disease Info'] = DISESE_INFO
 #--------------------------------------------------------------------------------------#
-xml = pd.DataFrame(Total).transpose().reset_index(drop=False)
+# xml = pd.DataFrame(Total).transpose().reset_index(drop=False)
 #--------------------------------------------------------------------------------------#
-xml.to_csv('Clinvariation.annotationinfo.ver.240402.txt', sep='\t', index=False)
-xml.to_excel('Clinvariation.annotationinfo.ver.240402.xlsx', index=False, sheet_name='Clinvar')
+# xml.to_csv('Clinvariation.annotationinfo.ver.240402.txt', sep='\t', index=False)
+#--------------------------------------------------------------------------------------#

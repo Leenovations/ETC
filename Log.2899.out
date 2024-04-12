@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "240411.XML.streaming.parsing.py", line 219, in <module>
+    process_sections(xml_file)
+  File "240411.XML.streaming.parsing.py", line 157, in process_sections
+    FullName = Fullname.get('FullName')
+AttributeError: 'NoneType' object has no attribute 'get'
