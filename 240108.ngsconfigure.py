@@ -137,7 +137,7 @@ with open('SampleSheet.txt', 'r') as samplesheet:
         with open(f'{Name}/job.sh', 'w') as note:
             note.write("#!/bin/bash" + '\n'
                         + "#" + '\n'
-                        + f"#SBATCH -J {BATCH['Run.type']}" + '\n'
+                        + f"#SBATCH -J {BATCH['Run.type']}.{Name}" + '\n'
                         + f"#SBATCH -o Log.%j.out" + '\n'
                         + f"#SBATCH --time=UNLIMITED" + '\n'
                         + f"#SBATCH --nodelist={BATCH['Node']}" + '\n'
@@ -153,6 +153,5 @@ with open('Total.Run.sh', 'w') as note:
             line = line.strip()
             splitted = line.split('\t')
             Name = str(splitted[0])
-
             note.write('cd ' + Dir + '/' + Name + '; ' + 'sbatch job.sh' + '\n')
 #-----------------------------------------------------------------------------#

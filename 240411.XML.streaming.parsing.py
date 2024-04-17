@@ -67,7 +67,10 @@ def process_sections(xml_file):
                                     Total[NM_accession.get('sequenceAccessionVersion')]['FullName'] = FullName
                                     #--------------------------------------------------------------------------------------#
                                     Location = elem.find("SimpleAllele/GeneList/Gene/Location/CytogeneticLocation")
-                                    Location = Location.text
+                                    if Location is not None:
+                                        Location = Location.text
+                                    else:
+                                        Location = '.'
                                     Total[NM_accession.get('sequenceAccessionVersion')]['Location'] = Location
                                     #--------------------------------------------------------------------------------------#
                                     OMIM = elem.find("SimpleAllele/GeneList/Gene/OMIM")
@@ -163,7 +166,10 @@ def process_sections(xml_file):
                                     Total[NM_accession.get('sequenceAccessionVersion')]['FullName'] = FullName
                                     #--------------------------------------------------------------------------------------#
                                     Location = elem.find("SimpleAllele/GeneList/Gene/Location/CytogeneticLocation")
-                                    Location = Location.text
+                                    if Location is not None:
+                                        Location = Location.text
+                                    else:
+                                        Location = '.'
                                     Total[NM_accession.get('sequenceAccessionVersion')]['Location'] = Location
                                     #--------------------------------------------------------------------------------------#
                                     OMIM = elem.find("SimpleAllele/GeneList/Gene/OMIM")
