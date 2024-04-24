@@ -5,7 +5,7 @@ def process_sections(xml_file):
     context = ET.iterparse(xml_file, events=('start', 'end'))
     _, root = next(context)
     
-    with open('Clinvar.annotation.txt', 'w') as note1:
+    with open('/media/src/hg19/06.Annotation/Clinvar.annotation.txt', 'w') as note1:
         note1.write('\t'.join(header) + '\n')
         for event, elem in context:
             Total = {}
