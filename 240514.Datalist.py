@@ -5,4 +5,4 @@ with open('Datalist.txt', 'w') as note01:
             splitted = line.split('\t')
             R_1 = splitted[1]
             R_2 = splitted[2]
-            note01.write(R_1 + '\t' + R_2 + '\n')
+            note01.write(R_1 + '\n' + R_2 + '\n')
