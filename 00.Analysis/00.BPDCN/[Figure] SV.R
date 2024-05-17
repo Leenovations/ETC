@@ -51,7 +51,6 @@ circos.track(track.index = get.current.track.index(), panel.fun = function(x, y)
               niceFacing = TRUE, adj = c(0.5, 1.5), cex = 0.8)
 }, track.height = strheight("fj", cex = 0.8)*1.2, bg.border = NA, cell.padding = c(0, 0, 0, 0))
 #------------------------------------------------------------------------------#
-
 circos.genomicLink(Donor_four, Acceptor_four,  
                    col='coral', 
                    lwd=8)
