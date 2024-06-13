@@ -1,14 +1,21 @@
+import os
 import gzip
+import glob
+import pandas as pd
 #----------------------------------------------------------------------------------#
-with open('/media/src/hg19/08.bed/K562HMM.tsv', 'w') as note01:
-    with open('/media/src/hg19/08.bed/wgEncodeBroadHmmK562HMM.bed', 'r') as bed:
-        for line in bed:
-            line = line.strip()
-            splitted = line.split('\t')
-            Chr = splitted[0][3:]
-            Start = splitted[1]
-            End = splitted[2]
-            Region = '_'.join(splitted[3].split('_')[1:])
-
-            New_line = '\t'.join([Chr, Start, End, '*', '.', '.', Region + '\n'])
-            note01.write(New_line)
+Data = sorted(glob.glob('/media/src/hg19/08.bed/*HMM.tsv'))
+#----------------------------------------------------------------------------------#
+for hmm in Data:
+    prefix = hmm.split('/')[-1]
+    prefix = prefix.split('HMM.tsv')[0]
+    #----------------------------------------------------------------------------------#    
+    Data = pd.read_csv(hmm,
+                       sep='\t',
+                       header='infer')
+    Data['name'] = Data['name'].apply(lambda x: '_'.join(x.split('_', )[1:]))
+    Data.columns = ['Chromosome', 'Start', 'End', 'Region']
+    Data = Data.sort_values(by=['Chromosome', 'Start', 'End'])
+    Data.to_csv(f'/media/src/hg19/08.bed/chromHMM.{prefix}.tsv',
+                sep='\t',
+                header='infer',
+                index=False)
