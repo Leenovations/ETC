@@ -139,6 +139,7 @@ with open('SampleSheet.txt', 'r') as samplesheet:
                         + "#" + '\n'
                         + f"#SBATCH -J {BATCH['Run.type']}.{Name}" + '\n'
                         + f"#SBATCH -o Log.%j.out" + '\n'
+                        + f"#SBATCH -e Error.%j.out" + '\n'
                         + f"#SBATCH --time=UNLIMITED" + '\n'
                         + f"#SBATCH --nodelist={BATCH['Node']}" + '\n'
                         + f"#SBATCH -n {Cpu}" + '\n'
